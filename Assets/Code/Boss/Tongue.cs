@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Tongue : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
     public BossFly bossFly;
     [Header("Tongue")]
     public float tongueLength = 1f;
@@ -21,6 +21,10 @@ public class Tongue : MonoBehaviour
     public float tongueDuration = 0.3f;   // เวลาที่ลิ้นค้างอยู่
     public float attackCooldown = 1f;     // พักหลังใช้สกิล
 
+    void Start()
+    {
+        GameObject target = GameObject.FindGameObjectWithTag("Player");
+    }
     public IEnumerator Attack()
     {
         // หยุดการเคลื่อนที่ของบอส

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class DashAttack : MonoBehaviour
 {
-    public Rigidbody rb;
-    public Transform player;
+    private Rigidbody rb;
+    private Transform player;
 
     [Header("Dash Area")]
     public float leftX = -50f;
@@ -17,6 +17,11 @@ public class DashAttack : MonoBehaviour
     public float prepareTime = 0.5f;
     public float attackCooldown = 1f;
 
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        GameObject target = GameObject.FindGameObjectWithTag("Player");
+    }
     void Awake()
     {
         if (rb == null)
