@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6861608114770495882}
   m_Layer: 0
   m_Name: "\u0E25\u0E39\u0E01\u0E28\u0E23\u0E40\u0E15\u0E37\u0E2D\u0E19 (1)"
-  m_TagString: Untagged
+  m_TagString: Boss1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -29,7 +29,7 @@ public class BossStateMachine : MonoBehaviour
 
     IEnumerator StateLoop()
     {
-        while (true)
+        while (enabled)
         {
             switch (currentState)
             {
@@ -77,5 +77,9 @@ public class BossStateMachine : MonoBehaviour
 
             yield return null;
         }
+    }
+    void OnDisable()
+    {
+        StopAllCoroutines();
     }
 }

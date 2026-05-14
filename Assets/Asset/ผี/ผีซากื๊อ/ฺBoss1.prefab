@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2618405322654844328}
   - component: {fileID: 469282661980671575}
   m_Layer: 0
-  m_Name: "\u0E15\u0E31\u0E27\u0E1C\u0E35\u0E2A\u0E32\u0E01\u0E34\u0E4A\u0E2D"
+  m_Name: AliveObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,11 +261,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
-  Damage: 0
-  DropItem: []
   spriteRenderer: {fileID: 7628572237611715595}
   hitColor: {r: 1, g: 0.6839622, b: 0.6839622, a: 1}
   blinkDuration: 0
+  body: {fileID: 872366259073301010}
+  coffinPrefab: {fileID: 7497317955868506592, guid: 1ca84134d0b2c5542b90c939ca5e83ae, type: 3}
 --- !u!114 &7718417069806209140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +340,9 @@ MonoBehaviour:
   dashSpeed: 100
   prepareTime: 1
   attackCooldown: 1
+  damage: 1
+  horizontalKnockbackForce: 30
+  verticalKnockbackForce: 3
 --- !u!114 &4026164048820418769
 MonoBehaviour:
   m_ObjectHideFlags: 0
