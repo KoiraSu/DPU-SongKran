@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Tongue : MonoBehaviour
 {
-    private Transform player;
+    public Transform player;
     public BossFly bossFly;
     [Header("Tongue")]
     public float tongueLength = 1f;
@@ -23,7 +23,13 @@ public class Tongue : MonoBehaviour
 
     void Start()
     {
-        GameObject target = GameObject.FindGameObjectWithTag("Player");
+        GameObject target =
+            GameObject.FindGameObjectWithTag("Player");
+
+        if (target != null)
+        {
+            player = target.transform;
+        }
     }
     public IEnumerator Attack()
     {
