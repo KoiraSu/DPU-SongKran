@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public static Player instance;
 
     [Header("Player")]
-    public int hp = 8;
+    public int hp = 3;
 
     [Header("UI")]
     public TMP_Text HPText;
@@ -46,6 +46,15 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(RIP());
         }
+    }
+    public void Heal(int amount)
+    {
+        if (isDead) return;
+
+        hp += amount;
+
+        // จำกัดไม่ให้เลือดเกิน 10
+        hp = Mathf.Min(hp, 3);
     }
 
     IEnumerator RIP()
