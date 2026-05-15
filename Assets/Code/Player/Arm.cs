@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Arm : MonoBehaviour
 {
+    public GameObject firepoint;
 
     private SpriteRenderer arm;
     void Start()

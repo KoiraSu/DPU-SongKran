@@ -6,7 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     public Player Player;
     private Rigidbody rb;
-
+    public Animator anim;
     public Vector2 movement;
 
     [Header("Move")]
@@ -28,7 +28,7 @@ public class PlayerMove : MonoBehaviour
     public float dashCooldown = 1f;
     private Collider[] playerColliders;
 
-    private bool isDashing = false;
+    public bool isDashing = false;
     private bool canDash = true;
     private Vector3 dashDirection = Vector3.right;
 
@@ -54,6 +54,7 @@ public class PlayerMove : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpCount++;
+            anim.SetBool("Jump", true);
         }
     }
 
@@ -61,6 +62,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (input.isPressed && canDash && !isDashing)
         {
+            anim.SetBool("Dash", true);
             StartCoroutine(DashRoutine());
         }
     }
@@ -170,12 +172,14 @@ public class PlayerMove : MonoBehaviour
         playerColliders = GetComponentsInChildren<Collider>();
     }
 
+    // แก้ Update() ใน PlayerMove เป็นแบบนี้
     void Update()
     {
         if (!isDashing)
         {
             speed = walk;
         }
+
     }
 
     void FixedUpdate()

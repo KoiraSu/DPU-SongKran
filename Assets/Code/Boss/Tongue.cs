@@ -5,9 +5,15 @@ public class Tongue : MonoBehaviour
 {
     public Transform player;
     public BossFly bossFly;
+
     [Header("Tongue")]
     public float tongueLength = 1f;
+   
+    [Header("Body Swap")]
+    public GameObject body1;       // ตัวปกติของบอส (ในฉาก)
+    public GameObject body2Prefab; // ตัวหัว/หน้าผากที่จะถูกสร้างขึ้นตอนใช้สกิล
 
+    private GameObject body2Instance;
     [Header("Prefabs")]
     public GameObject warningArrow;
     public GameObject tonguePrefab;
@@ -42,6 +48,22 @@ public class Tongue : MonoBehaviour
             {
                 bossFly.rb.linearVelocity = Vector3.zero;
             }
+        }
+        // ใส่ไว้ตอนเริ่ม Attack() หลังจากหยุดการเคลื่อนที่ของบอส
+
+        // ===== สลับร่าง =====
+        if (body1 != null)
+        {
+            body1.SetActive(false);
+        }
+
+        if (body2Prefab != null)
+        {
+            body2Instance = Instantiate(
+                body2Prefab,
+                firePoint.position,
+                firePoint.rotation
+            );
         }
 
         // ===== WARNING : หมุนตามผู้เล่นแบบ real-time =====
@@ -105,6 +127,19 @@ public class Tongue : MonoBehaviour
 
         // พักหลังใช้สกิล
         yield return new WaitForSeconds(attackCooldown);
+        // ใส่หลังจาก Destroy(tongue, tongueDuration);
+        // และหลังจาก yield return new WaitForSeconds(tongueDuration);
+
+        // ===== กลับเป็นร่างเดิม =====
+        if (body2Instance != null)
+        {
+            Destroy(body2Instance);
+        }
+
+        if (body1 != null)
+        {
+            body1.SetActive(true);
+        }
 
         // กลับมาเคลื่อนที่ต่อ
         if (bossFly != null)

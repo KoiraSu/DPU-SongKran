@@ -4,13 +4,9 @@ public class LookAtP : MonoBehaviour
 {
     public Transform player;
 
-    private SpriteRenderer spriteRenderer;
-
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // หา Player จาก Tag อัตโนมัติ
+        // หา Player อัตโนมัติ
         GameObject target =
             GameObject.FindGameObjectWithTag("Player");
 
@@ -20,24 +16,29 @@ public class LookAtP : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("LookAtP: ไม่พบ GameObject ที่มี Tag = Player");
+            Debug.LogWarning("LookAtP: ไม่พบ Player");
         }
     }
 
     void Update()
     {
-        // ถ้ายังหา Player ไม่เจอ ก็ไม่ต้องทำอะไร
         if (player == null) return;
 
-        // ถ้า player อยู่ด้านขวาของบอส
-        if (player.position.x > transform.position.x)
+        // หาทิศไปหา Player
+        Vector3 dir = player.position - transform.position;
+
+        // แปลงเป็นองศา
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        // หมุนไปหา Player
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+        if (dir.x < 0)
         {
-            spriteRenderer.flipX = true;
+            transform.localScale = new Vector3(1, -1, 1);
         }
-        // ถ้า player อยู่ด้านซ้ายของบอส
         else
         {
-            spriteRenderer.flipX = false;
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 }
