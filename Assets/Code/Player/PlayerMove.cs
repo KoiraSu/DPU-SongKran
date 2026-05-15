@@ -8,6 +8,15 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
     public Animator anim;
     public Vector2 movement;
+    
+
+    [Header("Movement Bounds (World Space)")]
+    [Tooltip("มุมซ้ายล่างของพื้นที่ที่เดินได้")]
+    public Vector2 boundsMin = new Vector2(-50f, 0f);
+
+    [Tooltip("มุมขวาบนของพื้นที่ที่เดินได้")]
+    public Vector2 boundsMax = new Vector2(50f, 100f);
+
 
     [Header("Move")]
     public float walk = 10f;
@@ -39,11 +48,7 @@ public class PlayerMove : MonoBehaviour
         // จำเฉพาะซ้าย/ขวา
         if (Mathf.Abs(movement.x) > 0.01f)
         {
-            dashDirection = new Vector3(
-                Mathf.Sign(movement.x),
-                0f,
-                0f
-            );
+            dashDirection = new Vector3(Mathf.Sign(movement.x),0f,0f);
         }
     }
 
@@ -128,7 +133,23 @@ public class PlayerMove : MonoBehaviour
         Vector3 moveDir = new Vector3(movement.x, 0f, movement.y);
         Vector3 vel = transform.TransformDirection(moveDir) * speed;
 
-        rb.linearVelocity = new Vector3(vel.x, rb.linearVelocity.y, vel.z);
+        // ตั้งความเร็ว
+        rb.linearVelocity = new Vector3(
+            vel.x,
+            rb.linearVelocity.y,
+            vel.z
+        );
+
+        // จำกัดตำแหน่งให้อยู่ในขอบเขต
+        Vector3 pos = rb.position;
+
+        pos.x = Mathf.Clamp(pos.x, boundsMin.x, boundsMax.x);
+        pos.y = Mathf.Clamp(pos.y, boundsMin.y, boundsMax.y);
+
+        // ถ้าเกม 3D เดินบน XZ ให้เปลี่ยน pos.y เป็น pos.z แทน
+        // pos.z = Mathf.Clamp(pos.z, boundsMin.y, boundsMax.y);
+
+        rb.position = pos;
     }
 
     void ApplyBetterJumpPhysics()

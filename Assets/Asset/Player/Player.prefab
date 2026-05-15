@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b5d627be9383f448d2b663ac2e30f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
+  hp: 3
   HPText: {fileID: 0}
   deathUI: {fileID: 0}
   body: {fileID: 397446020655141295}
@@ -242,6 +242,8 @@ MonoBehaviour:
   Player: {fileID: 0}
   anim: {fileID: 5724968564372762262}
   movement: {x: 0, y: 0}
+  boundsMin: {x: -80, y: 0}
+  boundsMax: {x: 80, y: 100}
   walk: 40
   jumpForce: 30
   maxJump: 2
