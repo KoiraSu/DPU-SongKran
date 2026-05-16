@@ -1,26 +1,27 @@
 using System.Collections;
 using UnityEngine;
 
-public class BossStateMachine : MonoBehaviour
+public class BossState1Machine : MonoBehaviour
 {
     public enum BossState
     {
-        Idle,
+        Moving,
         Attacking
     }
 
     public BossState currentState;
 
     [Header("References")]
-    public Skill1 Skill1;
-    public Skill2 Skill2;
-    public Skill3 Skill3;
+    public BossFly fly;
+    public WaterBall waterBall;
+    public Tongue tongue;
+    public DashAttack dash;
 
     private bool attacking;
 
     void Start()
     {
-        currentState = BossState.Idle;
+        currentState = BossState.Moving;
 
         StartCoroutine(StateLoop());
     }
@@ -31,7 +32,7 @@ public class BossStateMachine : MonoBehaviour
         {
             switch (currentState)
             {
-                case BossState.Idle:
+                case BossState.Moving:
 
                     yield return new WaitForSeconds(3f);
 
@@ -44,25 +45,30 @@ public class BossStateMachine : MonoBehaviour
                     {
                         attacking = true;
 
+                        fly.canMove = false;
+
                         int random = Random.Range(0, 3);
 
                         switch (random)
                         {
                             case 0:
-                                yield return StartCoroutine(Skill1.Attack());
+                                yield return StartCoroutine(waterBall.Attack());
                                 break;
 
                             case 1:
-                                yield return StartCoroutine(Skill2.Attack());
+                                yield return StartCoroutine(tongue.Attack());
                                 break;
 
                             case 2:
-                                yield return StartCoroutine(Skill3.Attack());
+                                yield return StartCoroutine(dash.Attack());
                                 break;
                         }
 
+                        fly.canMove = true;
+
                         attacking = false;
-                        currentState = BossState.Idle;
+
+                        currentState = BossState.Moving;
                     }
 
                     break;
