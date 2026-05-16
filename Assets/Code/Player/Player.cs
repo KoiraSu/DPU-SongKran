@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
     [Header("Death")]
     public GameObject coffinPrefab;
+    public GameObject drownedPrefab;
 
     public float restartDelay = 3f;
 
@@ -102,6 +103,45 @@ public class Player : MonoBehaviour
         }
 
         // รอ
+        yield return new WaitForSeconds(0.5f);
+
+        // เปิด YOU DIED
+        if (deathUI != null)
+        {
+            deathUI.SetActive(true);
+        }
+
+        // รอรีฉาก
+        yield return new WaitForSeconds(restartDelay);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public IEnumerator Drowned()
+    {
+        Vector3 deathPosition = transform.position;
+        isDead = true;
+        if (body != null)
+        {
+            body.SetActive(false);
+        }
+        GetComponent<Collider>().enabled = false; 
+
+        Rigidbody playerRb = GetComponent<Rigidbody>();
+
+        if (playerRb != null)
+        {
+            playerRb.linearVelocity = Vector3.zero;
+        }
+
+        // ปิด script เดิน
+        GetComponent<PlayerMove>().enabled = false;
+
+        // สร้างโลง
+        GameObject coffin = Instantiate(drownedPrefab,deathPosition,Quaternion.identity);
+        yield return new WaitForSeconds(0.2f);
+        Destroy( coffin );
+
         yield return new WaitForSeconds(0.5f);
 
         // เปิด YOU DIED

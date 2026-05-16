@@ -222,10 +222,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  HPText: {fileID: 0}
-  deathUI: {fileID: 0}
+  HPText: {fileID: 3544960734642898518, guid: 7e848b1e7b9c48a44821f76f12215ef9, type: 3}
+  deathUI: {fileID: 1584839976457008336, guid: b58c982a70aa3cd4e9299f52f00f7514, type: 3}
   body: {fileID: 397446020655141295}
   coffinPrefab: {fileID: 7497317955868506592, guid: 1ca84134d0b2c5542b90c939ca5e83ae, type: 3}
+  drownedPrefab: {fileID: 7890598672790689391, guid: de5c9c4bfe5a59b4ab70fb38b04e2425, type: 3}
   restartDelay: 4
 --- !u!114 &3225708939009664916
 MonoBehaviour:

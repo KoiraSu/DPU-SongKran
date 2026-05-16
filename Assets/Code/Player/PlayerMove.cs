@@ -97,6 +97,7 @@ public class PlayerMove : MonoBehaviour
 
         float timer = 0f;
 
+        // ===== แก้เฉพาะส่วน while ใน DashRoutine() =====
         while (timer < dashDuration)
         {
             // พุ่งเฉพาะแกน X
@@ -105,6 +106,11 @@ public class PlayerMove : MonoBehaviour
                 rb.linearVelocity.y,
                 0f
             );
+
+            // จำกัดเฉพาะแกน X
+            Vector3 pos = rb.position;
+            pos.x = Mathf.Clamp(pos.x, boundsMin.x, boundsMax.x);
+            rb.position = pos;
 
             timer += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
@@ -126,6 +132,7 @@ public class PlayerMove : MonoBehaviour
         canDash = true;
     }
 
+    // ===== แก้ฟังก์ชัน Move() =====
     void Move()
     {
         if (isDashing) return;
@@ -137,18 +144,12 @@ public class PlayerMove : MonoBehaviour
         rb.linearVelocity = new Vector3(
             vel.x,
             rb.linearVelocity.y,
-            vel.z
+            0f
         );
 
-        // จำกัดตำแหน่งให้อยู่ในขอบเขต
+        // จำกัดเฉพาะแกน X (เดินซ้าย-ขวา)
         Vector3 pos = rb.position;
-
         pos.x = Mathf.Clamp(pos.x, boundsMin.x, boundsMax.x);
-        pos.y = Mathf.Clamp(pos.y, boundsMin.y, boundsMax.y);
-
-        // ถ้าเกม 3D เดินบน XZ ให้เปลี่ยน pos.y เป็น pos.z แทน
-        // pos.z = Mathf.Clamp(pos.z, boundsMin.y, boundsMax.y);
-
         rb.position = pos;
     }
 
@@ -181,6 +182,10 @@ public class PlayerMove : MonoBehaviour
         {
             jumpCount = 0;
         }
+        else if (collision.gameObject.CompareTag("Water"))
+        {
+            StartCoroutine(Player.Drowned());
+        }
     }
 
     void Start()
@@ -188,12 +193,10 @@ public class PlayerMove : MonoBehaviour
         speed = walk;
         rb = GetComponent<Rigidbody>();
         rb.linearDamping = 0f;
-
+        Player = GetComponent<Player>();
         // เก็บ Collider ทั้งหมดของผู้เล่น
         playerColliders = GetComponentsInChildren<Collider>();
     }
-
-    // แก้ Update() ใน PlayerMove เป็นแบบนี้
     void Update()
     {
         if (!isDashing)
