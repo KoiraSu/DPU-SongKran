@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 3345582803321241118}
   - component: {fileID: 4997427371167211491}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   col: {fileID: 0}
   snakePrefab: {fileID: 2418321684817785290, guid: 2d6fc87a8858f3542bf5011f697ccef9, type: 3}
-  spawnCount: 15
+  spawnCount: 5
   timeBorn: 5
   snakeSpeed: 5
   lifeTime: 100

@@ -182,6 +182,10 @@ public class PlayerMove : MonoBehaviour
         {
             jumpCount = 0;
         }
+        else if (collision.gameObject.CompareTag("Ground2"))
+        {
+            jumpCount = 0;
+        }
         else if (collision.gameObject.CompareTag("Water"))
         {
             StartCoroutine(Player.Drowned());

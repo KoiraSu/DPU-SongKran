@@ -52,5 +52,10 @@ public class SnakeAttack : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (collision.gameObject.CompareTag("Ground2"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
+
