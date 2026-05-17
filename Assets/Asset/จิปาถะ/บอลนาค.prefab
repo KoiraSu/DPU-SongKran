@@ -98,7 +98,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   damage: 1
   speed: 100
-  lifeTime: 1
+  lifeTime: 2
 --- !u!1001 &3618992921116764088
 PrefabInstance:
   m_ObjectHideFlags: 0

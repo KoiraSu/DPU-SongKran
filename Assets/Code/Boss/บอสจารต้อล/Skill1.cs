@@ -10,6 +10,8 @@ public class Skill1 : MonoBehaviour
     public Transform spawn3;
     public Transform spawn4;
     public Transform spawn5;
+    public Transform spawn6;
+    public Transform spawn7;
 
     public int shoot = 1;
     public float delay = 1f;
@@ -54,9 +56,25 @@ public class Skill1 : MonoBehaviour
 
             GameObject ball5 = Instantiate(prefab1, spawn5.position, spawn5.rotation);
             BallFire fire5 = ball5.GetComponent<BallFire>();
-            if (fire4 != null)
+            if (fire5 != null)
             {
                 fire5.Fire(spawn5.up);
+            }
+            yield return new WaitForSeconds(delay);
+
+            GameObject ball6 = Instantiate(prefab1, spawn6.position, spawn6.rotation);
+            BallFire fire6 = ball6.GetComponent<BallFire>();
+            if (fire6 != null)
+            {
+                fire6.Fire(spawn6.up);
+            }
+            yield return new WaitForSeconds(delay);
+
+            GameObject ball7 = Instantiate(prefab1, spawn7.position, spawn7.rotation);
+            BallFire fire7 = ball7.GetComponent<BallFire>();
+            if (fire7 != null)
+            {
+                fire7.Fire(spawn7.up);
             }
             yield return new WaitForSeconds(delay);
         }

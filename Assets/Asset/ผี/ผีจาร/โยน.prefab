@@ -105,7 +105,7 @@ MonoBehaviour:
   targetX: -65
   minTargetY: 20
   maxTargetY: 70
-  moveSpeed: 100
+  moveSpeed: 50
   rotationSpeed: 720
   owner: {fileID: 0}
   damage: 1
