@@ -125,5 +125,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2905986631308608755}
   janPrefab: {fileID: 4190146620005186589, guid: f06e6c7104073594db32aa01a7e7480d, type: 3}
-  again: 3
+  again: 1
   haveJan: 1
