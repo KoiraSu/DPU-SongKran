@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150ba72e229c4054884338b764ee5a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audi: {fileID: 0}
+  JomNam: {fileID: 8300000, guid: 28fbf2da2bdfb414db43a86e5607cc31, type: 3}
   rb: {fileID: 0}
   col: {fileID: 0}
   snakePrefab: {fileID: 2418321684817785290, guid: 2d6fc87a8858f3542bf5011f697ccef9, type: 3}

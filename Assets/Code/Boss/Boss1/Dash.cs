@@ -6,6 +6,8 @@ public class DashAttack : MonoBehaviour
     //แก้แล้ว
     public Rigidbody rb;
     public Transform player;
+    public AudioClip attackSound;
+    public AudioSource audi;
 
     [Header("Dash Area")]
     public float leftX = -50f;
@@ -32,6 +34,7 @@ public class DashAttack : MonoBehaviour
 
     void Awake()
     {
+        audi = GetComponent<AudioSource>();
         if (rb == null)
         {
             rb = GetComponent<Rigidbody>();
@@ -50,6 +53,7 @@ public class DashAttack : MonoBehaviour
 
     public IEnumerator Attack()
     {
+        audi.PlayOneShot(attackSound);
         if (rb == null)
         {
             Debug.LogError("DashAttack: หา Rigidbody ไม่เจอ");

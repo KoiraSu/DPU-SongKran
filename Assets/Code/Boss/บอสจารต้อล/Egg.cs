@@ -4,6 +4,8 @@ using UnityEngine;
 public class Egg : MonoBehaviour
 {
     //แก้แล้ว
+    public AudioSource audi;
+    public AudioClip JomNam;
     public Rigidbody rb;
     public Collider col;
 
@@ -32,6 +34,7 @@ public class Egg : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        audi = GetComponent<AudioSource>();
 
         // ถ้าไม่ตกพื้นภายในเวลาที่กำหนด ก็หายไป
         Destroy(gameObject, lifeTime);
@@ -56,6 +59,7 @@ public class Egg : MonoBehaviour
         // ตกน้ำ
         else if (other.CompareTag("Water"))
         {
+            audi.PlayOneShot(JomNam);
             StartCoroutine(Drowned());
         }
     }
@@ -110,6 +114,7 @@ public class Egg : MonoBehaviour
 
     IEnumerator Drowned()
     {
+        
         if (isDestroyed) yield break;
 
         isDestroyed = true;

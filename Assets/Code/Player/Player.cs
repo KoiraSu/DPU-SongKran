@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
 {
     //แก้แล้ว
     public static Player instance;
+    public AudioSource audi;
+    public AudioClip Hurts;
+    public AudioClip TokNam;
 
     [Header("Player")]
     public int hp = 3;
@@ -28,6 +31,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        audi = GetComponent<AudioSource>();
         instance = this;
     }
 
@@ -38,6 +42,8 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        audi.PlayOneShot(Hurts);
+    
         if (isDead) return;
 
         hp -= amount;
@@ -120,6 +126,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Drowned()
     {
+        audi.PlayOneShot(TokNam);
         Vector3 deathPosition = transform.position;
         isDead = true;
         if (body != null)

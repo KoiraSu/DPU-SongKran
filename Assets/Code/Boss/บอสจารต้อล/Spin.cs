@@ -4,7 +4,10 @@ using UnityEngine;
 // พุ่งออกไปแล้วกลับมาจุดเริ่ม จากนั้นแจ้งเจ้าของว่า "โยนเสร็จแล้ว" ก่อนหายไปจากโลก
 public class Spin : MonoBehaviour
 {
-    //แก้แล้ว
+    [Header("Audio")]
+    public AudioClip[] spinSounds;   // ลากเสียงมาใส่ได้ 3 เสียงหรือกี่เสียงก็ได้
+    public AudioSource audioSource;  // AudioSource ที่ใช้เล่นเสียง
+
     [Header("Positions")]
     public Vector2 startPosition = new Vector2(72f, 30f);
     public float targetX = -65f;
@@ -22,8 +25,16 @@ public class Spin : MonoBehaviour
     private Vector3 currentTarget;
     private bool goingOut = true;
     public int damage = 1;
+
     void Start()
     {
+        // ถ้าไม่ได้ลาก AudioSource มา ก็พยายามหาเอง
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        // สุ่มเล่นเสียง 1 เสียงจากใน array
+        PlayRandomSound();
+
         transform.position = new Vector3(
             startPosition.x,
             startPosition.y,
@@ -70,6 +81,20 @@ public class Spin : MonoBehaviour
             }
         }
     }
+
+    void PlayRandomSound()
+    {
+        if (spinSounds == null || spinSounds.Length == 0)
+            return;
+
+        if (audioSource == null)
+            return;
+
+        int randomIndex = Random.Range(0, spinSounds.Length);
+        audioSource.clip = spinSounds[randomIndex];
+        audioSource.Play();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -80,9 +105,9 @@ public class Spin : MonoBehaviour
             {
                 player.TakeDamage(damage);
             }
-            
         }
     }
+
     void SetRandomTarget()
     {
         float randomY = Random.Range(minTargetY, maxTargetY);

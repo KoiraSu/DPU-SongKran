@@ -103,6 +103,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9eeb1989a2c4c743aad0edbdbf09ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spinSounds:
+  - {fileID: 8300000, guid: d4c4b4d79a6a32d469622dbb79d5fa19, type: 3}
+  - {fileID: 8300000, guid: 2926076195606fd45bea3002b900bccc, type: 3}
+  - {fileID: 8300000, guid: 5433f124fc23f48479c04c87fa58917c, type: 3}
+  - {fileID: 8300000, guid: c9c7a77cb02e7ae4da3b071e4a0572a0, type: 3}
+  audioSource: {fileID: 0}
   startPosition: {x: 72, y: 30}
   targetX: -65
   minTargetY: 20
@@ -144,8 +150,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7f7426d75c56d514e82a6b722f1d43b3, type: 3}
-  m_Resource: {fileID: 8300000, guid: 7f7426d75c56d514e82a6b722f1d43b3, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1.16
