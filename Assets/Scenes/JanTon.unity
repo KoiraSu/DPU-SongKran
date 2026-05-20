@@ -2400,6 +2400,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 559863601}
   hitColor: {r: 0.85192966, g: 0.75, b: 1, a: 1}
   blinkDuration: 0
+  tagsToDestroy:
+  - Boss2
   body: {fileID: 559138456}
   coffinPrefab: {fileID: 7497317955868506592, guid: 1ca84134d0b2c5542b90c939ca5e83ae, type: 3}
 --- !u!1 &1786282398

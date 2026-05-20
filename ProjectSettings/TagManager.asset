@@ -10,6 +10,7 @@ TagManager:
   - Boss1
   - Water
   - Ground2
+  - Boss2
   layers:
   - Default
   - TransparentFX

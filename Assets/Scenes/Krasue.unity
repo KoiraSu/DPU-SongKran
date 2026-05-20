@@ -764,6 +764,14 @@ PrefabInstance:
       propertyPath: hp
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 8588071090388621891, guid: b9c7cb53768ed0044b78f7b59780642c, type: 3}
+      propertyPath: tagsToDestroy.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588071090388621891, guid: b9c7cb53768ed0044b78f7b59780642c, type: 3}
+      propertyPath: 'tagsToDestroy.Array.data[0]'
+      value: Boss1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

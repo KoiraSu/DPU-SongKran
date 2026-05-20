@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4997427371167211491}
   m_Layer: 0
   m_Name: Egg
-  m_TagString: Untagged
+  m_TagString: Boss2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
