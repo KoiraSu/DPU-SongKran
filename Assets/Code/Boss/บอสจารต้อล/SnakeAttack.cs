@@ -3,6 +3,10 @@ using UnityEngine;
 // งูที่ไม่แคร์โลก ชนอะไรก็วิ่งต่อ ยกเว้นตกน้ำก็จบชีวิตตามบท
 public class SnakeAttack : MonoBehaviour
 {
+
+    [Header("Audio")]
+    public AudioClip[] Snake;   // ลากเสียงมาใส่ได้ 3 เสียงหรือกี่เสียงก็ได้
+    public AudioSource audioSource;
     //แก้แล้ว
     public int damage = 1;
     public float moveSpeed = 5f;
@@ -12,9 +16,10 @@ public class SnakeAttack : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         if (rb == null) return;
-
+        PlayRandomSound();
         // สุ่มซ้ายหรือขวา
         direction = Random.value > 0.5f ? 1f : -1f;
 
@@ -24,6 +29,18 @@ public class SnakeAttack : MonoBehaviour
         transform.localScale = scale;
     }
 
+    void PlayRandomSound()
+    {
+        if (Snake == null || Snake.Length == 0)
+            return;
+
+        if (audioSource == null)
+            return;
+
+        int randomIndex = Random.Range(0, Snake.Length);
+        audioSource.clip = Snake[randomIndex];
+        audioSource.Play();
+    }
     private void Update()
     {
         if (rb == null) return;
