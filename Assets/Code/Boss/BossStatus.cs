@@ -22,7 +22,7 @@ public class BossStatus : MonoBehaviour
     public float loadDelay = 2f;
 
     private Color originalColor;
-    private bool isDead;
+    public bool isDead;
 
     void Start()
     {
