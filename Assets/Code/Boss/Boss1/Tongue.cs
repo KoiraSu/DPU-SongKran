@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Tongue : MonoBehaviour
 {
-    //แก้แล้ว
     public Transform player;
     public BossFly bossFly;
 
@@ -21,7 +20,7 @@ public class Tongue : MonoBehaviour
     public GameObject tonguePrefab;
 
     [Header("References")]
-    public Transform firePoint;
+    private Transform firePoint;
 
     [Header("Timing")]
     public float warningTime = 0.7f;
@@ -63,9 +62,18 @@ public class Tongue : MonoBehaviour
         {
             body2Instance = Instantiate(
                 body2Prefab,
-                firePoint.position,
-                firePoint.rotation
+                transform.position,
+                transform.rotation
             );
+
+            // หา firePoint จาก prefab ที่สร้าง
+            firePoint = body2Instance.transform.Find("Head/newfire");
+
+            if (firePoint == null)
+            {
+                Debug.LogError("ไม่พบ newfire ใน prefab");
+                yield break;
+            }
         }
 
         // ===== WARNING =====

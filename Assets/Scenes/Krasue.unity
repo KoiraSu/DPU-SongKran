@@ -888,6 +888,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4026164048820418769, guid: b9c7cb53768ed0044b78f7b59780642c, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 1957750925}
     - target: {fileID: 6208039403084397692, guid: b9c7cb53768ed0044b78f7b59780642c, type: 3}
       propertyPath: m_Name
       value: "\u0E3ABoss1"
@@ -1428,6 +1432,11 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!4 &1957750925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2740632141227433872, guid: b9c7cb53768ed0044b78f7b59780642c, type: 3}
+  m_PrefabInstance: {fileID: 959588089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1994020130
 GameObject:
   m_ObjectHideFlags: 0
