@@ -3,17 +3,19 @@ using UnityEngine;
 
 public class Tongue : MonoBehaviour
 {
+    //แก้แล้ว
     public Transform player;
     public BossFly bossFly;
 
     [Header("Tongue")]
     public float tongueLength = 1f;
-   
+
     [Header("Body Swap")]
-    public GameObject body1;       // ตัวปกติของบอส (ในฉาก)
-    public GameObject body2Prefab; // ตัวหัว/หน้าผากที่จะถูกสร้างขึ้นตอนใช้สกิล
+    public GameObject body1;
+    public GameObject body2Prefab;
 
     private GameObject body2Instance;
+
     [Header("Prefabs")]
     public GameObject warningArrow;
     public GameObject tonguePrefab;
@@ -22,10 +24,10 @@ public class Tongue : MonoBehaviour
     public Transform firePoint;
 
     [Header("Timing")]
-    public float warningTime = 0.7f;      // เวลาที่ลูกศรหมุนตามผู้เล่น
-    public float lockDelay = 1.8f;        // ล็อกเป้าแล้ว รอก่อนยิงจริง
-    public float tongueDuration = 0.3f;   // เวลาที่ลิ้นค้างอยู่
-    public float attackCooldown = 1f;     // พักหลังใช้สกิล
+    public float warningTime = 0.7f;
+    public float lockDelay = 1.8f;
+    public float tongueDuration = 0.3f;
+    public float attackCooldown = 1f;
 
     void Start()
     {
@@ -37,9 +39,9 @@ public class Tongue : MonoBehaviour
             player = target.transform;
         }
     }
+
     public IEnumerator Attack()
     {
-        // หยุดการเคลื่อนที่ของบอส
         if (bossFly != null)
         {
             bossFly.canMove = false;
@@ -49,9 +51,9 @@ public class Tongue : MonoBehaviour
                 bossFly.rb.linearVelocity = Vector3.zero;
             }
         }
-        // ใส่ไว้ตอนเริ่ม Attack() หลังจากหยุดการเคลื่อนที่ของบอส
 
         // ===== สลับร่าง =====
+
         if (body1 != null)
         {
             body1.SetActive(false);
@@ -66,71 +68,121 @@ public class Tongue : MonoBehaviour
             );
         }
 
-        // ===== WARNING : หมุนตามผู้เล่นแบบ real-time =====
-        GameObject warning = Instantiate(warningArrow,firePoint.position,Quaternion.identity);
+        // ===== WARNING =====
+
+        GameObject warning = Instantiate(
+            warningArrow,
+            firePoint.position,
+            Quaternion.identity
+        );
 
         float timer = 0f;
+        float blinkTimer = 0f;
 
         while (timer < warningTime)
         {
             timer += Time.deltaTime;
+            blinkTimer += Time.deltaTime;
 
-            Vector3 direction = (player.position - firePoint.position).normalized;
+            Vector3 direction =
+                (player.position - firePoint.position).normalized;
 
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle =
+                Mathf.Atan2(direction.y, direction.x) *
+                Mathf.Rad2Deg;
 
             warning.transform.position = firePoint.position;
-            warning.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            warning.SetActive(!warning.activeSelf);
+            warning.transform.rotation =
+                Quaternion.Euler(0, 0, angle);
 
-            yield return new WaitForSeconds(0.1f);
+            // กระพริบทุก 0.1 วิ
+            if (blinkTimer >= 0.1f)
+            {
+                warning.SetActive(!warning.activeSelf);
+                blinkTimer = 0f;
+            }
+
+            yield return null;
         }
 
-        // ===== ล็อกตำแหน่งสุดท้าย =====
+        // ===== ล็อกตำแหน่ง =====
+
         Vector3 targetPosition = player.position;
-        Vector3 directionToTarget = targetPosition - firePoint.position;
+
+        Vector3 directionToTarget =
+            targetPosition - firePoint.position;
 
         float distance = directionToTarget.magnitude;
 
-        float finalAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+        float finalAngle =
+            Mathf.Atan2(
+                directionToTarget.y,
+                directionToTarget.x
+            ) * Mathf.Rad2Deg;
 
-        // ลูกศรค้างไว้ให้ผู้เล่นเห็นว่าถูกล็อกแล้ว
         warning.SetActive(true);
-        warning.transform.position = firePoint.position;
-        warning.transform.rotation = Quaternion.Euler(0, 0, finalAngle);
 
-        // รอก่อนยิงจริง
-        yield return new WaitForSeconds(lockDelay);
+        warning.transform.position = firePoint.position;
+
+        warning.transform.rotation =
+            Quaternion.Euler(0, 0, finalAngle);
+
+        // ===== รอล็อก =====
+
+        float lockTimer = 0f;
+
+        while (lockTimer < lockDelay)
+        {
+            lockTimer += Time.deltaTime;
+            yield return null;
+        }
 
         Destroy(warning);
 
         // ===== สร้างลิ้น =====
-        GameObject tongue = Instantiate(tonguePrefab,firePoint.position,Quaternion.Euler(0, 0, finalAngle));
 
-        // ปรับความยาวให้ถึงตำแหน่งที่ล็อกไว้พอดี
+        GameObject tongue = Instantiate(
+            tonguePrefab,
+            firePoint.position,
+            Quaternion.Euler(0, 0, finalAngle)
+        );
+
         Vector3 scale = tongue.transform.localScale;
         scale.x = distance / tongueLength;
         tongue.transform.localScale = scale;
 
-        // ตั้งดาเมจ
         TongueHit hit = tongue.GetComponent<TongueHit>();
+
         if (hit != null)
         {
             hit.damage = 1;
         }
 
-        Destroy(tongue, tongueDuration);
+        // ===== เวลาลิ้น =====
 
-        // รอให้ลิ้นค้างอยู่
-        yield return new WaitForSeconds(tongueDuration);
+        float tongueTimer = 0f;
 
-        // พักหลังใช้สกิล
-        yield return new WaitForSeconds(attackCooldown);
-        // ใส่หลังจาก Destroy(tongue, tongueDuration);
-        // และหลังจาก yield return new WaitForSeconds(tongueDuration);
+        while (tongueTimer < tongueDuration)
+        {
+            tongueTimer += Time.deltaTime;
+            yield return null;
+        }
 
-        // ===== กลับเป็นร่างเดิม =====
+        Destroy(tongue);
+
+        // ===== คูลดาวน์ =====
+
+        float cooldownTimer = 0f;
+
+        while (cooldownTimer < attackCooldown)
+        {
+            cooldownTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        // ===== กลับร่าง =====
+
         if (body2Instance != null)
         {
             Destroy(body2Instance);
@@ -141,7 +193,6 @@ public class Tongue : MonoBehaviour
             body1.SetActive(true);
         }
 
-        // กลับมาเคลื่อนที่ต่อ
         if (bossFly != null)
         {
             bossFly.canMove = true;

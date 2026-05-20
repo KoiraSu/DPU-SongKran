@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DashAttack : MonoBehaviour
 {
+    //แก้แล้ว
     public Rigidbody rb;
     public Transform player;
 

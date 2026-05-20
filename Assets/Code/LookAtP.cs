@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class LookAtP : MonoBehaviour
 {
+    //แก้แล้ว
     public Transform player;
 
     void Start()

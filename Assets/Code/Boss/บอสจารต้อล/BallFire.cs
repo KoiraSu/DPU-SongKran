@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BallFire : MonoBehaviour
 {
+    //แก้แล้ว
     public Rigidbody rb;
     public int damage = 1;
     public float speed = 20f;

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    //แก้แล้ว
     public int damage = 1;
     public float lifeTime = 2f;
 

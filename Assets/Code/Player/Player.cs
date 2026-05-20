@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    //แก้แล้ว
     public static Player instance;
 
     [Header("Player")]

@@ -327,8 +327,11 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7628572237611715595}
   hitColor: {r: 1, g: 0.6839622, b: 0.6839622, a: 1}
   blinkDuration: 0
+  tagsToDestroy: []
   body: {fileID: 872366259073301010}
   coffinPrefab: {fileID: 7497317955868506592, guid: 1ca84134d0b2c5542b90c939ca5e83ae, type: 3}
+  nextSceneName: JanTon
+  loadDelay: 2
 --- !u!114 &7718417069806209140
 MonoBehaviour:
   m_ObjectHideFlags: 0

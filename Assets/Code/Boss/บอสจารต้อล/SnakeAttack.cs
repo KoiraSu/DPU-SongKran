@@ -3,6 +3,7 @@ using UnityEngine;
 // งูที่ไม่แคร์โลก ชนอะไรก็วิ่งต่อ ยกเว้นตกน้ำก็จบชีวิตตามบท
 public class SnakeAttack : MonoBehaviour
 {
+    //แก้แล้ว
     public int damage = 1;
     public float moveSpeed = 5f;
 
@@ -23,17 +24,16 @@ public class SnakeAttack : MonoBehaviour
         transform.localScale = scale;
     }
 
-    // ตั้งความเร็วทุกเฟรมฟิสิกส์ ไม่ให้การชนทำให้หยุด
-    private void FixedUpdate()
+    private void Update()
     {
-        if (rb != null)
-        {
-            rb.linearVelocity = new Vector3(
-                direction * moveSpeed,
-                rb.linearVelocity.y,   // เก็บแรงโน้มถ่วงไว้
-                0f
-            );
-        }
+        if (rb == null) return;
+
+        // เคลื่อนที่แบบ deltaTime ตรง ๆ
+        transform.position += new Vector3(
+            direction * moveSpeed * Time.deltaTime,
+            0f,
+            0f
+        );
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,12 +41,11 @@ public class SnakeAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
+
             if (player != null)
             {
                 player.TakeDamage(damage);
             }
-
-            // ไม่ทำอะไรเพิ่มเติม งูจะวิ่งต่อเพราะ FixedUpdate บังคับความเร็วตลอดเวลา
         }
         else if (collision.gameObject.CompareTag("Water"))
         {
@@ -58,4 +57,3 @@ public class SnakeAttack : MonoBehaviour
         }
     }
 }
-

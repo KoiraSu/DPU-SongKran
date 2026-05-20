@@ -4,6 +4,7 @@ using UnityEngine;
 // พุ่งออกไปแล้วกลับมาจุดเริ่ม จากนั้นแจ้งเจ้าของว่า "โยนเสร็จแล้ว" ก่อนหายไปจากโลก
 public class Spin : MonoBehaviour
 {
+    //แก้แล้ว
     [Header("Positions")]
     public Vector2 startPosition = new Vector2(72f, 30f);
     public float targetX = -65f;

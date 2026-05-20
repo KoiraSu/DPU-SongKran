@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossStatus : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class BossStatus : MonoBehaviour
     [Header("Death")]
     public GameObject body;
     public GameObject coffinPrefab;
+
+    [Header("Scene")]
+    public string nextSceneName;
+    public float loadDelay = 2f;
 
     private Color originalColor;
     private bool isDead;
@@ -57,8 +62,7 @@ public class BossStatus : MonoBehaviour
     {
         isDead = true;
 
-        // ปิดสคริปต์ทั้งหมดบนบอส ยกเว้น BossStatus เอง
-        // ไม่ต้อง StopAllCoroutines() เพราะมันจะฆ่า DieRoutine ตัวนี้ด้วย
+        // ปิดสคริปต์ทั้งหมดบนบอส ยกเว้นตัวนี้
         MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
 
         foreach (MonoBehaviour script in scripts)
@@ -77,8 +81,9 @@ public class BossStatus : MonoBehaviour
             body.SetActive(false);
         }
 
-        // ปิด collider ของบอส
+        // ปิด collider
         Collider bossCollider = GetComponent<Collider>();
+
         if (bossCollider != null)
         {
             bossCollider.enabled = false;
@@ -86,6 +91,7 @@ public class BossStatus : MonoBehaviour
 
         // หยุดการเคลื่อนที่
         Rigidbody bossRb = GetComponent<Rigidbody>();
+
         if (bossRb != null)
         {
             bossRb.linearVelocity = Vector3.zero;
@@ -106,28 +112,31 @@ public class BossStatus : MonoBehaviour
 
         if (coffin != null)
         {
-            // Collider ของโลง
-            Collider coffinCollider = coffin.GetComponent<Collider>();
+            Collider coffinCollider =
+                coffin.GetComponent<Collider>();
+
             if (coffinCollider != null)
             {
                 coffinCollider.isTrigger = true;
             }
 
-            // ฟิสิกส์ของโลง
-            Rigidbody coffinRb = coffin.GetComponent<Rigidbody>();
+            Rigidbody coffinRb =
+                coffin.GetComponent<Rigidbody>();
+
             if (coffinRb != null)
             {
                 coffinRb.useGravity = true;
                 coffinRb.linearDamping = 0f;
                 coffinRb.angularDamping = 0f;
                 coffinRb.mass = 1f;
+
                 coffinRb.collisionDetectionMode =
                     CollisionDetectionMode.Continuous;
 
-                // เด้งขึ้น + สุ่มซ้ายขวา
                 coffinRb.AddForce(
                     Vector3.up * 8f +
-                    Vector3.right * Random.Range(-2f, 2f),
+                    Vector3.right *
+                    Random.Range(-2f, 2f),
                     ForceMode.Impulse
                 );
             }
@@ -152,10 +161,10 @@ public class BossStatus : MonoBehaviour
             }
         }
 
-        // รอ 1 วินาที
-        yield return null;
+        // รอ
+        yield return new WaitForSeconds(loadDelay);
 
-        // ลบวัตถุตาม Tag ที่กำหนด
+        // ลบ object ตาม tag
         if (tagsToDestroy != null)
         {
             foreach (string tag in tagsToDestroy)
@@ -171,6 +180,16 @@ public class BossStatus : MonoBehaviour
                     Destroy(obj);
                 }
             }
+        }
+
+        // เปลี่ยนฉากถ้ามีชื่อฉาก
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            // ไม่ใส่ชื่อฉาก = ไม่ทำอะไร
         }
 
         // ลบบอส

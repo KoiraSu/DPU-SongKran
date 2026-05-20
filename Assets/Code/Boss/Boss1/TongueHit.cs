@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TongueHit : MonoBehaviour
 {
+    //แก้แล้ว
     public int damage = 1;
 
     private void OnTriggerEnter(Collider other)

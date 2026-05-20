@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Egg : MonoBehaviour
 {
+    //แก้แล้ว
     public Rigidbody rb;
     public Collider col;
 

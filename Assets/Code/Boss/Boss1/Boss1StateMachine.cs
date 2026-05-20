@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BossState1Machine : MonoBehaviour
 {
+    //แก้แล้ว
     public enum BossState
     {
         Moving,

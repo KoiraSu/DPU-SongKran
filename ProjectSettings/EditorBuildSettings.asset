@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/New gameplay.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/Boss.unity
-    guid: 0762805aed89bd74da10da86066d84cb
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 5e8e99f8e413fa5449c33eba739d1a7e
+  - enabled: 1
+    path: Assets/Scenes/Krasue.unity
+    guid: 66f55fee0aa042746928028d8eea578c
+  - enabled: 1
+    path: Assets/Scenes/JanTon.unity
+    guid: 8c603fe5c51f8714cbf294b53d7db1c2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
